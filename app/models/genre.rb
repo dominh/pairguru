@@ -10,4 +10,8 @@
 
 class Genre < ActiveRecord::Base
   has_many :movies
+
+  def number_of_movies
+    movies.count
+  end
 end

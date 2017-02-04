@@ -1,0 +1,5 @@
+{
+  "type": "object",
+  "properties": {"id": {}, "title": {}},
+  "additionalProperties": false
+}

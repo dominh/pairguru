@@ -27,6 +27,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'json_matchers'
   gem 'capybara'
   gem 'faker', '~> 1.4.3'
   gem 'factory_girl_rails', '~> 4.0'

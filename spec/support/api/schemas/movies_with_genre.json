@@ -1,0 +1,21 @@
+{
+  "type": "array",
+  "items": {
+    "properties": {
+      "id": {},
+      "title": {},
+      "genre": {
+        "type": "object",
+        "properties": {
+          "id": {},
+          "name": {},
+          "number_of_movies": {}
+        },
+        "minProperties": 3,
+        "additionalProperties": false
+      }
+     },
+    "additionalProperties": false,
+    "minProperties": 3
+  }
+}
