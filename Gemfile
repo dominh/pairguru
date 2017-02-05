@@ -13,6 +13,7 @@ gem 'decent_exposure'
 gem 'bootstrap-sass'
 gem 'annotate', '~> 2.6.5'
 gem 'delayed_job_active_record'
+gem 'themoviedb-api'
 
 group :development do
   gem 'rails-erd'

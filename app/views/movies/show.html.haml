@@ -1,5 +1,15 @@
 %h1= movie.title
 .jumbotron
-  = movie.description
+  .row
+    .col-lg-8
+      %p
+        %b overview:
+        = movie.plot_overview
+        %p
+          %b average_rating:
+          = movie.average_rating
+    .col-lg-4.text-center
+      = movie.poster_img
+
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(movie), class: 'btn btn-sm btn-default'

@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'benchmark'
 
 RSpec.shared_examples 'json' do |schema_name|
   it 'should return json response' do

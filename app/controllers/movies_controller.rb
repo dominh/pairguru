@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:send_info]
 
   expose_decorated(:movies) { Movie.all }
-  expose(:movie)
+  expose_decorated(:movie)
 
   def index
     respond_to do |format|
