@@ -14,7 +14,7 @@
 
 class Movie < ActiveRecord::Base
   belongs_to :genre
-  delegate *%I(poster average_rating plot_overview), to: :movie_details
+  delegate *MovieDetails::ATTRS, to: :movie_details
 
   private
 

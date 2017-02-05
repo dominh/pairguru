@@ -9,16 +9,20 @@ class TheMovieDb
   end
 
   def image_base_url
-     config.images.base_url
+    config.images.base_url
   end
 
   private
 
   def build_movie_details(result)
     MovieDetails.new.tap do |md|
-      md.poster = result.poster_path
-      md.average_rating = result.vote_average
-      md.plot_overview = result.overview
+      {
+        poster: :poster_path,
+        average_rating: :vote_average,
+        plot_overview: :overview
+      }.each do |model_attribute, api_attribute|
+        md.send("#{model_attribute}=", result[api_attribute])
+      end
     end
   end
 

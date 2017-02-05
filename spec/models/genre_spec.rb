@@ -5,8 +5,10 @@ describe Genre do
   subject { described_class.find(1) }
 
   it { expect(subject.number_of_movies).to equal(5) }
+  
   describe 'if new movie appear' do
     before { create :movie, genre: subject }
+
     it { expect(subject.number_of_movies).to equal(6) }
   end
 end

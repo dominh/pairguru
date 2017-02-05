@@ -4,20 +4,13 @@ class MoviesController < ApplicationController
   expose_decorated(:movies) { Movie.all }
   expose_decorated(:movie)
 
-  def index
-    respond_to do |format|
-      format.html
-      format.json do
-        render_json(movies)
-      end
-    end
-  end
-
-  def show
-    respond_to do |format|
-      format.html
-      format.json do
-        render_json(movie)
+  %I(index show).each do |action|
+    define_method(action) do
+      respond_to do |format|
+        format.html
+        format.json do
+          render_json(send({ index: :movies, show: :movie }[action]))
+        end
       end
     end
   end

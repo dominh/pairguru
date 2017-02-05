@@ -8,7 +8,7 @@ RSpec.shared_examples 'json' do |schema_name|
   it { expect(response).to match_response_schema(schema_name) }
 end
 
-RSpec.describe MoviesController, type: :controller do
+RSpec.describe MoviesController do
   before do
     user = FactoryGirl.create(:user)
     allow(controller).to receive(:authenticate_user!).and_return(true)
