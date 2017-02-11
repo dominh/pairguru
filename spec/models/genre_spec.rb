@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-describe Genre do
-  let!(:genres) { create_list(:genre, 5, :with_movies) }
-  subject { described_class.find(1) }
+describe Genre, type: :model do
+  subject(:genre) { described_class.find(1) }
+  before { create_list(:genre, 5, :with_movies) }
 
-  it { expect(subject.number_of_movies).to equal(5) }
-  
+  its(:number_of_movies) { is_expected.to equal(5) }
+
   describe 'if new movie appear' do
-    before { create :movie, genre: subject }
+    before { create :movie, genre: genre }
 
-    it { expect(subject.number_of_movies).to equal(6) }
+    its(:number_of_movies) { is_expected.to equal(6) }
   end
 end

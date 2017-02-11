@@ -41,14 +41,12 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  RSpec.configure do |config|
-    config.before(:each) do
-      TheMovieDb.any_instance.stub(:get_details_for_movie) do
-        build(:movie_details)
-      end
-      TheMovieDb.any_instance.stub(:image_base_url) do
-        'http://example.org/'
-      end
+  config.before(:each) do
+    TheMovieDb.any_instance.stub(:get_details_for_movie) do
+      build(:movie_details)
+    end
+    TheMovieDb.any_instance.stub(:image_base_url) do
+      'http://example.org/'
     end
   end
 

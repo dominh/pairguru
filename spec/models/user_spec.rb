@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User do
+describe User, type: :model do
   before { skip 'Not implemented yet' }
 
   it { is_expected.to allow_value('+48 999 888 777').for(:phone_number) }

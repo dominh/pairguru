@@ -14,7 +14,7 @@
 
 class Movie < ActiveRecord::Base
   belongs_to :genre
-  delegate *MovieDetails::ATTRS, to: :movie_details
+  delegate(*MovieDetails::ATTRS, to: :movie_details)
 
   private
 

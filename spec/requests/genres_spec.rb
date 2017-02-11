@@ -9,5 +9,4 @@ describe 'Genres requests', type: :request do
       expect(page).to have_selector('table tr', count: 5)
     end
   end
-
 end

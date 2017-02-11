@@ -1,15 +1,26 @@
 require 'rails_helper'
 
 describe 'Movies requests', type: :request do
+  before do
+    create_list(:movie, 2)
+    SecureRandom.stub(uuid: 'some_uuid')
+    allow_any_instance_of(MovieDecorator)
+      .to receive(:cover_image_type).and_return('abstract')
+  end
+
   describe 'movies list' do
+    before { visit '/movies' }
     it 'displays right title' do
-      visit '/movies'
       expect(page).to have_selector('h1', exact: 'Movies')
+    end
+
+    it 'displays movies\' posters' do
+      cover = first(:css, 'img.img-rounded')
+      expect(cover['src']).to eq('http://lorempixel.com/100/150/abstract?a=some_uuid')
     end
   end
 
   describe 'movie_page' do
-    let!(:movies) { create_list(:movie, 2) }
     before { visit '/movies/1' }
 
     it 'displays poster image' do

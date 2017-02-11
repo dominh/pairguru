@@ -1,19 +1,15 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'json' do |schema_name|
-  it 'should return json response' do
-    response.header['Content-Type'].should include 'application/json'
+  it 'returns json response' do
+    expect(response.header['Content-Type']).to include 'application/json'
   end
 
   it { expect(response).to match_response_schema(schema_name) }
 end
 
-RSpec.describe MoviesController do
-  before do
-    user = FactoryGirl.create(:user)
-    allow(controller).to receive(:authenticate_user!).and_return(true)
-    allow(controller).to receive(:current_user).and_return(user)
-  end
+RSpec.describe MoviesController, type: :controller do
+  before { sign_in }
 
   let!(:movies) { create_list(:movie, 2) }
 
@@ -30,10 +26,10 @@ RSpec.describe MoviesController do
 
     it do
       get :send_info, id: movie
-      expect(subject).to redirect_to(movie_path(movie))
+      is_expected.to redirect_to(movie_path(movie))
     end
 
-    it 'should add new delayed job' do
+    it 'adds new delayed job' do
       expect do
         get :send_info, id: movie
       end.to change(Delayed::Job, :count).by(1)
@@ -43,10 +39,10 @@ RSpec.describe MoviesController do
   describe 'export' do
     it do
       get :export
-      expect(subject).to redirect_to(root_path)
+      is_expected.to redirect_to(root_path)
     end
 
-    it 'should add new delayed job' do
+    it 'adds new delayed job' do
       expect do
         get :export
       end.to change(Delayed::Job, :count).by(1)
