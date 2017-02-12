@@ -14,11 +14,10 @@
 
 class Movie < ActiveRecord::Base
   belongs_to :genre
+  attr_accessor :movie_details
   delegate(*MovieDetails::ATTRS, to: :movie_details)
 
-  private
-
-  def movie_details
-    @movie_details ||= TheMovieDb.instance.get_details_for_movie(self)
+  def movie_details?
+    movie_details.present?
   end
 end

@@ -4,13 +4,22 @@ class MoviesController < ApplicationController
   expose_decorated(:movies) { Movie.all }
   expose_decorated(:movie)
 
-  %I(index show).each do |action|
-    define_method(action) do
-      respond_to do |format|
-        format.html
-        format.json do
-          render_json(send({ index: :movies, show: :movie }[action]))
-        end
+  def index
+    respond_to do |format|
+      format.html
+      format.json do
+        render_json(movies)
+      end
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.html do
+        set_movie_details
+      end
+      format.json do
+        render_json(movie)
       end
     end
   end
@@ -26,7 +35,25 @@ class MoviesController < ApplicationController
     redirect_to root_path, notice: 'Movies exported'
   end
 
+  def poster_img_base_url
+    the_movie_db.image_base_url
+  end
+  helper_method :poster_img_base_url
+
   private
+
+  def set_movie_details
+    movie.movie_details =
+      begin
+        the_movie_db.get_details_for_movie(movie)
+      rescue TheMovieDb::NoResults, Tmdb::Error
+        nil
+      end
+  end
+
+  def the_movie_db
+    @the_movie_db ||= TheMovieDb.new
+  end
 
   def render_json(object)
     render json: object.to_json(json_fields)

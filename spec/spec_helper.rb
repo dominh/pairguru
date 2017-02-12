@@ -41,15 +41,6 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.before(:each) do
-    TheMovieDb.any_instance.stub(:get_details_for_movie) do
-      build(:movie_details)
-    end
-    TheMovieDb.any_instance.stub(:image_base_url) do
-      'http://example.org/'
-    end
-  end
-
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
